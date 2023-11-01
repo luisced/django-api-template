@@ -1,4 +1,5 @@
 version: '3.9'
+
 services:
   djangoapp:
     container_name: djangoapp
@@ -6,24 +7,24 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
       - POSTGRES_HOST=db
       - POSTGRES_PORT=5432
     depends_on:
       - db
   db:
     container_name: db
-    image: postgres:13.3
-    ports:
-      - "5432:5432"
+    image: postgres:12
     environment:
-      - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data
   adminer:
     container_name: adminer
     image: adminer
@@ -33,7 +34,4 @@ services:
       - db
 
 volumes:
-  postgres_data: {}	
-
-
-
+  postgres_data: {}
