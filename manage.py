@@ -9,6 +9,9 @@ def main():
     # Set the Django settings module based on the environment
     settings_module = os.environ.get('DJANGO_SETTINGS_MODULE', 'djangoproject.settings')
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
+    print(f"Using settings module: {settings_module}")
+
+
     
     try:
         from django.core.management import execute_from_command_line

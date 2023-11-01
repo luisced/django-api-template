@@ -4,7 +4,8 @@ services:
   djangoapp:
     container_name: djangoapp
     build: .
-    restart: always
+    ports:
+      - "8000:8000"
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -14,13 +15,8 @@ services:
       - DEBUG=${DEBUG}
     env_file:
       - .env.dev
-    ports:
-      - "8000:8000"
     depends_on:
       - db
-    volumes:
-      - .:/app_volume
-
   db:
     container_name: db
     image: postgres:16
@@ -33,13 +29,7 @@ services:
 
     volumes:
       - postgres_data:/var/lib/postgresql/data
-  adminer:
-    container_name: adminer
-    image: adminer
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
-
+    env_file:
+      - .env.dev
 volumes:
   postgres_data: {}
