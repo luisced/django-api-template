@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'djangoapp', # Django app
+    'template', # Django app
     'rest_framework', # Django REST Framework instead of Django Views
 ]
 
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'django_template.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('SQL_ENGINE', 'django.db.backends.sqlite3'),
+        'ENGINE': os.environ.get('DB_DRIVER', 'django.db.backends.postgresql'),
         'NAME': os.environ.get('POSTGRES_DB', 'postgres'),
         'USER': os.environ.get('POSTGRES_USER', 'postgres'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'postgres'),
