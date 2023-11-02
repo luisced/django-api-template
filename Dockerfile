@@ -17,15 +17,13 @@ RUN /venv/bin/pip install --upgrade pip && \
 # Copy project
 COPY . .
 
-# Give execution rights on the script
-RUN chmod +x /app/django.sh
 
 # Use a non-root user to run our application
 RUN useradd -m myuser
 
 # Change the ownership of the /app directory to the non-root user
-RUN chown -R myuser:myuser /app
-
+RUN chown -R myuser:myuser /app && \
+    chmod +x /app/django.sh
 USER myuser
 
 
