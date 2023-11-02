@@ -14,7 +14,7 @@ services:
       - POSTGRES_PORT=${POSTGRES_PORT}
       - DEBUG=${DEBUG}
     env_file:
-      - .env.dev
+      - fileName: .env.dev
     depends_on:
       - db
   db:
