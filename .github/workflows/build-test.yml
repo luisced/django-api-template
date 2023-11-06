@@ -65,6 +65,7 @@ jobs:
         if: always()
         run: docker logout
   tag:
+    needs: publish-to-dockerhub
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
