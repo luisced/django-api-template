@@ -38,6 +38,7 @@ jobs:
       - name: Cleanup
         run: docker-compose --env-file .env.dev -f docker-compose.dev.yml down
   publish-to-dockerhub:
+    name: Publish Docker image to Docker Hub
     needs: build-and-test
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') # Only run for tagged commits
@@ -65,6 +66,7 @@ jobs:
         if: always()
         run: docker logout
   tag:
+    name: Tag and Release
     needs: publish-to-dockerhub
     runs-on: ubuntu-latest
     steps:
