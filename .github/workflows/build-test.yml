@@ -91,3 +91,30 @@ jobs:
           release_name: Release ${{ steps.tag_version.outputs.new_tag }}
           draft: false
           prerelease: false
+  release:
+    name: Create Release
+    needs: publish-to-dockerhub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: path/to/assets # Replace with the path to any assets you want to upload
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Update README with Badge
+        run: |
+          # Construct the badge markdown
+          BADGE_MARKDOWN="![release](https://img.shields.io/github/v/release/luisced/django-api-template?style=flat-square)"
+          # Replace the placeholder text in README.md with the badge markdown
+          sed -i "s|<!--version-badge-->|${BADGE_MARKDOWN}|g" README.md
+          # Push changes back to the repository
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git commit -am "Update README with release badge" || echo "No changes to commit"
+          git push origin HEAD:dev
